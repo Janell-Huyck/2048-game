@@ -1,8 +1,10 @@
 .grid {
+  display: flex;
+  flex-wrap: wrap;
   width: 50vh;
   height: 50vh;
-  max-width: 50vw;
-  max-height: 50vw;
+  max-width: 90vw;
+  max-height: 90vw;
   background-color: #f9f6f2;
   border-radius: 10px;
   overflow: hidden;
@@ -12,17 +14,21 @@
 
 .grid-row {
   display: flex;
+  flex-direction: row;
+  flex-basis: 100%;
 }
 
 .grid-cell {
-  flex: 1 0 auto;
+  flex: 1 0 20%; /* Here, the flex basis is 20%, which implies each row contains 5 cells (100/20 = 5). */
   padding: 10px;
+  margin: 5px;
   background-color: #eee4da;
   border-radius: 5px;
-  margin: 5px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  position: relative;
 }
 
-  
+.grid-cell:before {
+  content: '';
+  display: block;
+  padding-top: 100%; /* This creates a pseudo-element that maintains the aspect ratio */
+}
