@@ -1,0 +1,28 @@
+.cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-width: 50px;  /* Set min-width as per your design */
+    height: 100%;
+    min-height: 50px; /* Set min-height as per your design */
+    font-weight: bold;
+    font-size: 24px;
+    border-radius: 5px;
+    background-color: #cdc1b4;
+}
+
+
+.number {
+    color: #776e65;
+}
+  
+.cell-2 {
+    background-color: #eee4da;
+}
+  
+.cell-4 {
+    background-color: #ede0c8;
+}
+  
+/* Add more styles for other cell values as needed */
