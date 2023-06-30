@@ -6,35 +6,96 @@ const Grid = () => {
   const [gridData, setGridData] = useState([]);
 
   const moveTiles = (direction) => {
-    let oldGridData = JSON.parse(JSON.stringify(gridData));
-    let newArray = null;
-
+    let oldGridData = JSON.parse(JSON.stringify(gridData)); // Make a deep copy of the original state
+    let newArray;
+  
     switch (direction) {
       case 'UP':
-        newArray = oldGridData[0].map((_, i) => oldGridData.map(row => row[i]));
-        newArray = newArray.map(row => row.filter(val => val).concat(Array(4).fill(0)).slice(0, 4));
-        newArray = newArray[0].map((_, i) => newArray.map(row => row[i]));
+        newArray = mergeAndSlide(oldGridData, 'UP');
         break;
       case 'DOWN':
-        newArray = oldGridData[0].map((_, i) => oldGridData.map(row => row[i]));
-        newArray = newArray.map(row => Array(4).fill(0).concat(row.filter(val => val)).slice(-4));
-        newArray = newArray[0].map((_, i) => newArray.map(row => row[i]));
+        newArray = mergeAndSlide(oldGridData, 'DOWN');
         break;
       case 'LEFT':
-        newArray = oldGridData.map(row => row.filter(val => val).concat(Array(4).fill(0)).slice(0, 4));
+        newArray = mergeAndSlide(oldGridData, 'LEFT');
         break;
       case 'RIGHT':
-        newArray = oldGridData.map(row => Array(4).fill(0).concat(row.filter(val => val)).slice(-4));
+        newArray = mergeAndSlide(oldGridData, 'RIGHT');
         break;
       default:
-        break;
+        console.log("Invalid direction");
+        return;
     }
-
+  
     if (JSON.stringify(oldGridData) !== JSON.stringify(newArray)) {
+      newArray = addNewNumber(newArray);
       setGridData(newArray);
     }
   };
+  
+  const mergeAndSlide = (oldArray, direction) => {
+    switch (direction) {
+      case 'UP':
+        return oldArray[0].map((col, c) => merge(oldArray.map(row => row[c])));
+      case 'DOWN':
+        return oldArray[0].map((col, c) => merge(oldArray.map(row => row[c])).reverse());
+      case 'LEFT':
+        return oldArray.map(row => merge(row));
+      case 'RIGHT':
+        return oldArray.map(row => merge(row).reverse());
+      default:
+        return oldArray;
+    }
+  };
+  
 
+  const addNewNumber = (newArray) => {
+    const emptyCells = [];
+    
+    for (let row = 0; row < newArray.length; row++) {
+      for (let col = 0; col < newArray[0].length; col++) {
+        if (newArray[row][col] === 0) { // We found an empty cell
+          emptyCells.push({ row, col });
+        }
+      }
+    }
+  
+    if (emptyCells.length === 0) {
+      return newArray;
+    }
+  
+    const randomIndex = Math.floor(Math.random() * emptyCells.length);
+    const randomCell = emptyCells[randomIndex];
+    const randomValue = Math.random() < 0.5 ? 2 : 4;
+  
+    newArray[randomCell.row][randomCell.col] = randomValue;
+    
+    return newArray;
+  };
+
+  const merge = (row) => {
+    let compactedRow = row.filter(val => val !== 0);  // remove zeros from the row
+    let newRow = [];
+    let i = 0;
+  
+    while (i < compactedRow.length) {
+      if (i !== compactedRow.length - 1 && compactedRow[i] === compactedRow[i + 1]) {
+        newRow.push(compactedRow[i] * 2);
+        i += 2;  // move two steps forward in compactedRow
+      } else {
+        newRow.push(compactedRow[i]);
+        i += 1;  // move one step forward in compactedRow
+      }
+    }
+  
+    // fill the rest of the row with 0s
+    while (newRow.length < row.length) {
+      newRow.push(0);
+    }
+  
+    return newRow;
+  };
+  
 
   const handleKeyDown = (event) => {
     switch(event.key) {
