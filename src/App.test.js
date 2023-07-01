@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders 2048', () => {
+test('renders without crashing', () => {
   render(<App />);
-  const linkElement = screen.getByText(/2048/i);
-  expect(linkElement).toBeInTheDocument();
-}
+  const gridElement = screen.getByTestId('grid');
+  expect(gridElement).toBeInTheDocument();
+});

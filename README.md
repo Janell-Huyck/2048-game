@@ -1,70 +1,26 @@
-# Getting Started with Create React App
+# 2048 Game Utilities
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This repository contains utility functions for the 2048 game, a popular game where the player combines tiles on a grid to create a tile with the number 2048.
 
-## Available Scripts
+## Overview
 
-In the project directory, you can run:
+The 2048 game involves a 4x4 grid and the objective is to combine tiles until you reach a tile with a value of 2048. Each turn, a new tile with a value of 2 or 4 appears in an empty spot on the board. The player can slide tiles either up, down, left or right. When two tiles with the same number touch, they merge into one with their values added together.
 
-### `npm start`
+## Utility Functions
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- `merge(row)`: This function takes in a row of numbers and performs the merging operation as per the rules of the game. It merges identical numbers and moves the resultant merged number to the left of the row.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- `addNewNumber(grid)`: This function takes in the current state of the grid and adds a new number (either 2 or 4) at a random empty spot on the grid.
 
-### `npm test`
+- `checkGameOver(grid)`: This function checks if the game is over. The game is considered to be over if there are no empty spots left on the grid and there are no possible merges left in any row or column.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- `transpose(grid)`: This function transposes the given grid (i.e., converts rows into columns and vice versa). This is particularly useful in the 2048 game when we need to slide and merge tiles vertically.
 
-### `npm run build`
+- `initializeGrid()`: This function returns a new 4x4 grid with two random cells initialized with a number either 2 or 4.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Testing
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+The functionality of these utilities is ensured by a comprehensive set of tests written using Jest. To run the tests, use the following command: 
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```bash
+npm test

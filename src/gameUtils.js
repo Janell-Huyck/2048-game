@@ -20,23 +20,25 @@ export const merge = (row) => {
   };
   
 export const addNewNumber = (gridData) => {
+
+    const newGrid = JSON.parse(JSON.stringify(gridData));
     let emptyCells = [];
     for (let row = 0; row < 4; row++) {
         for (let col = 0; col < 4; col++) {
-            if (gridData[row][col] === 0) {
+            if (newGrid[row][col] === 0) {
                 emptyCells.push({row, col});
             }
         }
     }
 
     if (emptyCells.length === 0) {
-        return gridData; // No empty cells
+        return newGrid; // No empty cells
     } else {
         let randomIndex = Math.floor(Math.random() * emptyCells.length);
         let randomCell = emptyCells[randomIndex];
         let randomValue = Math.random() < 0.5 ? 2 : 4;
 
-        let newGridData = [...gridData]; // Copy the old state
+        let newGridData = [...newGrid]; // Copy the old state
         newGridData[randomCell.row][randomCell.col] = randomValue; // Add the new number
 
         return newGridData;

@@ -32,3 +32,26 @@
   display: block;
   padding-top: 100%; /* This creates a pseudo-element that maintains the aspect ratio */
 }
+
+.game-over-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.8);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.game-over-message {
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+.new-game-button {
+  font-size: 1.2em;
+  padding: 10px;
+}

@@ -2,6 +2,7 @@ import React, { useEffect, useContext } from 'react';
 import Cell from './cell';
 import './grid.css';
 import GameContext from '../contexts/gameContext';
+import { initializeGrid } from '../gameUtils';
 
 const Grid = () => {
   const [gameState, gameDispatch] = useContext(GameContext);
@@ -51,7 +52,7 @@ const Grid = () => {
   }, []);  // Removed gridData from the dependency array as the handler doesn't depend on it directly
   
   return (
-    <div className="grid">
+    <div className="grid" data-testid="grid">
       {gameState.gridData.map((row, rowIndex) => (
         <div key={rowIndex} className="grid-row">
           {row.map((cellValue, colIndex) => (
@@ -59,6 +60,12 @@ const Grid = () => {
           ))}
         </div>
       ))}
+      {gameState.isGameOver && (
+      <div className="game-over-overlay">
+        <div className="game-over-message">Game Over!</div>
+        <button className="new-game-button" onClick={() => gameDispatch({ type: 'INITIALIZE_GRID' })}>New Game</button>
+      </div>
+    )}
     </div>
   );
 };
