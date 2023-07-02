@@ -2,10 +2,11 @@ import React, { useEffect, useContext } from 'react';
 import Cell from './cell';
 import './grid.css';
 import GameContext from '../contexts/gameContext';
-import { initializeGrid } from '../gameUtils';
 
 const Grid = () => {
-  const [gameState, gameDispatch] = useContext(GameContext);
+  const { gameState, gameDispatch } = useContext(GameContext);
+  const { didMove } = gameState;
+
 
   const handleKeyDown = (event) => {
     let direction;
@@ -38,10 +39,20 @@ const Grid = () => {
         console.log("Invalid key pressed");
         return;
     }
+
+    
     gameDispatch({ type: 'MOVE_TILES', payload: direction });
-    gameDispatch({ type: 'ADD_NEW_NUMBER' });
-    gameDispatch({ type: 'CHECK_GAME_OVER' });
   }
+
+  useEffect(() => {
+    if (didMove) {
+      gameDispatch({ type: 'ADD_NEW_NUMBER' });
+      gameDispatch({ type: 'CHECK_GAME_WON' });
+      gameDispatch({ type: 'CHECK_GAME_OVER' });
+      gameDispatch({ type: 'RESET_DID_MOVE' });
+    }
+  }, [didMove]); 
+  
 
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDown);
@@ -53,19 +64,19 @@ const Grid = () => {
   
   return (
     <div className="grid" data-testid="grid">
-      {gameState.gridData.map((row, rowIndex) => (
-        <div key={rowIndex} className="grid-row">
-          {row.map((cellValue, colIndex) => (
-            <Cell key={colIndex} value={cellValue} />
-          ))}
-        </div>
-      ))}
+      {gameState.gridData.map((row, rowIndex) => 
+        row.map((cell, colIndex) => (
+          <Cell key={`${rowIndex}-${colIndex}`} value={cell.value}  isNew={cell.isNew} />
+        ))
+      )}
       {gameState.isGameOver && (
-      <div className="game-over-overlay">
-        <div className="game-over-message">Game Over!</div>
-        <button className="new-game-button" onClick={() => gameDispatch({ type: 'INITIALIZE_GRID' })}>New Game</button>
-      </div>
-    )}
+        <div className="game-over-overlay">
+          <div className="game-over-message">{ gameState.wonGame ? "You Won!" : "Game Over!" }</div>
+          <br />
+          <br />
+          <button className="new-game-button" onClick={() => gameDispatch({ type: 'INITIALIZE_GRID' })}>New Game</button>
+        </div>
+      )}
     </div>
   );
 };

@@ -2,27 +2,26 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
-    min-width: 50px;  /* Set min-width as per your design */
-    height: 100%;
-    min-height: 50px; /* Set min-height as per your design */
-    font-weight: bold;
-    font-size: 24px;
-    border-radius: 5px;
+    /* aspect-ratio: 1 / 1; Make the cells square */
     background-color: #cdc1b4;
-}
-
-
-.number {
     color: #776e65;
-}
+    font-weight: bold;
+    font-size: 2em;
+    border-radius: 4px;
+    overflow: hidden;
+  }
   
-.cell-2 {
-    background-color: #eee4da;
-}
+  .new-cell {
+    animation: pop-in 0.5s cubic-bezier(0, 0.5, 0.5, 1.5) forwards;
+  }
   
-.cell-4 {
-    background-color: #ede0c8;
-}
+
+  @keyframes pop-in {
+    0% {
+      transform: scale(0);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
   
-/* Add more styles for other cell values as needed */

@@ -1,0 +1,14 @@
+.home {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 2rem auto;
+}
+
+.home p {
+    font-weight: 600;
+    text-align: center;
+    max-width: 500px;
+}
