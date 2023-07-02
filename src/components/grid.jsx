@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useCallback } from 'react';
 import Cell from './cell';
 import './grid.css';
 import GameContext from '../contexts/gameContext';
@@ -8,7 +8,7 @@ const Grid = () => {
   const { didMove } = gameState;
 
 
-  const handleKeyDown = (event) => {
+  const handleKeyDown = useCallback((event) => {
     let direction;
     switch(event.key) {
       case 'ArrowUp':
@@ -42,7 +42,7 @@ const Grid = () => {
 
     
     gameDispatch({ type: 'MOVE_TILES', payload: direction });
-  }
+  }, [gameDispatch]); 
 
   useEffect(() => {
     if (didMove) {
@@ -51,16 +51,15 @@ const Grid = () => {
       gameDispatch({ type: 'CHECK_GAME_OVER' });
       gameDispatch({ type: 'RESET_DID_MOVE' });
     }
-  }, [didMove]); 
-  
+  }, [didMove, gameDispatch]); 
 
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDown);
-    
+  
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, []);  // Removed gridData from the dependency array as the handler doesn't depend on it directly
+  }, [handleKeyDown]); 
   
   return (
     <div className="grid" data-testid="grid">
