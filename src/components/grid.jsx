@@ -7,7 +7,6 @@ const Grid = () => {
   const { gameState, gameDispatch } = useContext(GameContext);
   const { didMove } = gameState;
 
-
   const handleKeyDown = useCallback((event) => {
     let direction;
     switch(event.key) {

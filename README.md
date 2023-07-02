@@ -14,7 +14,9 @@ This project recreates the 2048 game using React.js and utilizes the context API
 
 This application primarily consists of these main components:
 
-- `GameBoard`: This component is responsible for rendering the game's grid based on the current state of the game. 
+- `Grid`: This component is responsible for rendering the game's grid based on the current state of the game. 
+  
+- `Cell`: This component is responsible for rendering an individual cell on the grid.
 
 - `ScoreBoard`: This component displays the player's current score.
 

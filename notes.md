@@ -1,17 +1,24 @@
-When a player takes a turn in a game like 2048, several things happen:
+To make your game work on mobile devices, you will need to handle touch and motion events. 
 
-1. **Direction Selection**: The player chooses a direction to "slide" the tiles. This can be up, down, left, or right.
+For swipe events, we can use the `touchstart`, `touchend`, and `touchmove` events. Here's a basic strategy:
 
-2. **Tile Movement**: Each tile in the direction of the move is "checked". If there's an empty space in the direction of the movement, the tile is moved to that location. This process is repeated for all the tiles in the direction of the slide.
+1. Attach event listeners for `touchstart` and `touchend` to the game container.
+2. On `touchstart`, record the position where the touch started (initial X and Y coordinates).
+3. On `touchend`, compare the final position with the initial position to determine the direction of the swipe.
+4. If the final X position is greater than the initial X position by a certain threshold, the swipe was to the right. If it's less, the swipe was to the left.
+5. Do the same for the Y positions to determine if the swipe was up or down.
+6. Once you've determined the direction of the swipe, you can call the same function that you'd call for the corresponding arrow key press.
 
-3. **Tile Merging**: After all tiles have been moved, the game checks if there are any two adjacent tiles in the direction of the move that have the same value. If there are, those two tiles merge into a single tile, and its value is the sum of the two original tiles. This new tile is moved to the furthest possible position in the direction of the slide. The merging process is performed for each pair of identical adjacent tiles.
+For tilt events, you can use the DeviceOrientation event. Here's a strategy:
 
-4. **Empty Spaces**: After the movement and merging process, there will be some empty spaces in the grid.
+1. Add an event listener for `deviceorientation` to the window.
+2. The event handler will receive an event object with `alpha`, `beta`, and `gamma` properties. These represent the degree of rotation around the Z, X, and Y axes, respectively. We'll focus on `beta` (X - front to back) and `gamma` (Y - left to right).
+3. If `beta` is greater than a certain threshold, the device is tilted forwards (up). If it's less (negative), the device is tilted backwards (down).
+4. If `gamma` is greater than a certain threshold, the device is tilted to the right. If it's less (negative), the device is tilted to the left.
+5. Like with the swipe events, once you've determined the tilt direction, call the function that handles the corresponding arrow key press.
 
-5. **Tile Generation**: A new tile with a value of 2 or 4 is randomly generated in one of the empty spaces. The game then ends the current turn.
+Please note, the `deviceorientation` event is deprecated and might not be supported on all devices and browsers. The new standard is the `Orientation Sensor` API, but as of my knowledge cutoff in September 2021, it is not widely supported. It's recommended to check the current state of these APIs.
 
-6. **Game Over Check**: Before a new turn begins, the game checks if there are any available moves left. If there are no empty spaces and no possible merges (no adjacent identical tiles in any direction), the game is over.
+In addition to the code changes, you should also make sure that your game layout is responsive, i.e., it adapts to different screen sizes and orientations. This can be achieved through responsive web design techniques like flexible layouts, media queries, flexible images and media.
 
-7. **Winning Check**: The game also checks if a tile with the value of 2048 has been created. If so, the player wins the game.
-
-The above steps outline the main game logic involved in taking a turn in a 2048 game. The specific implementation can vary depending on the programming language and the game design.
+Lastly, testing on a variety of devices is important to ensure a consistent experience. This includes different mobile phones and tablets, different screen sizes and resolutions, and different operating systems and browsers.
