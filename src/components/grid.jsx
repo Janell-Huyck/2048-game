@@ -1,47 +1,28 @@
-import React, { useEffect, useContext, useCallback } from 'react';
+import React, { useEffect, useContext } from 'react';
 import Cell from './cell';
 import './grid.css';
 import GameContext from '../contexts/gameContext';
+import { handleKeyInput } from '../utils/inputUtils';
 
 const Grid = () => {
   const { gameState, gameDispatch } = useContext(GameContext);
   const { didMove } = gameState;
 
-  const handleKeyDown = useCallback((event) => {
-    let direction;
-    switch(event.key) {
-      case 'ArrowUp':
-      case 'Up':
-      case 'w':
-      case 'W':
-        direction = 'UP';
-        break;
-      case 'ArrowDown':
-      case 'Down':
-      case 's':
-      case 'S':
-        direction = 'DOWN';
-        break;
-      case 'ArrowLeft':
-      case 'Left':
-      case 'a':
-      case 'A':
-        direction = 'LEFT';
-        break;
-      case 'ArrowRight':
-      case 'Right':
-      case 'd':
-      case 'D':
-        direction = 'RIGHT';
-        break;
-      default:
-        console.log("Invalid key pressed");
-        return;
-    }
+  useEffect(() => {
+    const keydownHandler = (event) => {
+      const direction = handleKeyInput(event);
 
-    
-    gameDispatch({ type: 'MOVE_TILES', payload: direction });
-  }, [gameDispatch]); 
+      if (direction) {
+        gameDispatch({ type: 'MOVE_TILES', payload: direction });
+      }
+    };
+
+    document.addEventListener('keydown', keydownHandler);
+
+    return () => {
+      document.removeEventListener('keydown', keydownHandler);
+    }
+  }, [gameDispatch]);
 
   useEffect(() => {
     if (didMove) {
@@ -52,22 +33,14 @@ const Grid = () => {
     }
   }, [didMove, gameDispatch]); 
 
-  useEffect(() => {
-    window.addEventListener('keydown', handleKeyDown);
-  
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [handleKeyDown]); 
   
   return (
-    <div className="grid" data-testid="grid">
+    <div className="grid" data-testid="grid" id="grid" >
       {gameState.gridData.map((row, rowIndex) => 
         row.map((cell, colIndex) => (
           <Cell key={`${rowIndex}-${colIndex}`} value={cell.value}  isNew={cell.isNew} />
         ))
       )}
-     
     </div>
   );
 };
