@@ -68,14 +68,7 @@ const Grid = () => {
           <Cell key={`${rowIndex}-${colIndex}`} value={cell.value}  isNew={cell.isNew} />
         ))
       )}
-      {gameState.isGameOver && (
-        <div className="game-over-overlay">
-          <div className="game-over-message">{ gameState.wonGame ? "You Won!" : "Game Over!" }</div>
-          <br />
-          <br />
-          <button className="new-game-button" onClick={() => gameDispatch({ type: 'INITIALIZE_GRID' })}>New Game</button>
-        </div>
-      )}
+     
     </div>
   );
 };

@@ -28,18 +28,20 @@ The game utilities are a set of functions that contain the core logic of the gam
 
 - `addNewNumber`: This function adds a new tile with a value of 2 or 4 at a random empty spot on the grid.
 
-- `checkGameOver`: This function checks if the game is over, which occurs when there are no empty spots on the grid and there are no possible merges of equal numbered tiles in the grid.
-
 - `transpose`: This function switches rows into columns and vice versa, which is used when the player makes a vertical move.
 
 - `initializeGrid`: This function creates a new 4x4 grid with two tiles initialized with a number (either 2 or 4).
+
+- `checkGameOver`: This function checks if the game is over, which occurs when there are no empty spots on the grid and there are no possible merges of equal numbered tiles in the grid.
+  
+- `checkGameWon`: This function checks if the user has won the game.
 
 ## Running the Project
 
 To run this project on your local machine, follow these steps:
 
 1. Clone the repository to your machine:
-    `git clone https://github.com/<username>/2048-game.git`
+    `git clone https://github.com/Janell-Huyck/2048-game.git`
 
 2. Navigate into the project directory:
     `cd 2048-game`
