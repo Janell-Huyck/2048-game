@@ -1,10 +1,12 @@
-import logo from './logo.svg';
 import './App.css';
-import Grid from './components/grid.jsx';
+import { GameProvider } from './contexts/gameContext';
+import Home from './pages/home.jsx';
 
 function App() {
   return (
-    <Grid/>
+    <GameProvider>
+      <Home/>
+    </GameProvider>
   );
 }
 
