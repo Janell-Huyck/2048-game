@@ -1,8 +1,8 @@
 /* Button.css */
 .custom-button {
-    background-color: #008CBA; /* Blue color */
+    background-color: #D3C3A3; 
     border: none;
-    color: white;
+    color: black;
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;
@@ -14,6 +14,6 @@
   }
   
   .custom-button:hover {
-    background-color: #007B9A; /* Darker blue when hovered */
+    background-color: #E2CDBA;
   }
   
