@@ -18,7 +18,6 @@ const { gameState } = useContext(GameContext);
             <p>Use your arrow keys to move the tiles. Tiles with the same number merge into one when they touch. Add them up to reach 2048!</p>
             <Button label="How to Play" onClick={() => setShowInstructionModal(true)}/>
             {showInstructionModal && <InstructionModal onClose={() => setShowInstructionModal(false)} />}
-
             <Grid/>
             <ScoreBoard />
             {isGameOver && <GameOver />}

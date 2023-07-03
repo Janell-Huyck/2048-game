@@ -1,36 +1,77 @@
+/* instructionModal.module.css */
+
 .modal {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     position: fixed;
-    z-index: 1;
-    left: 0;
     top: 0;
+    left: 0;
     width: 100%;
-    height: 100%;
+    height: 100vh;
+    background: rgba(238, 228, 218, 0.8);
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    box-sizing: border-box;
     overflow: auto;
-    background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0,0.4);
-}
+    z-index: 1;
+  }
 
 .modal-content {
+    max-width: 90%; /* limit width to prevent overflow on small screens */
+    box-sizing: border-box; /* include padding and border in element's total width and height */
+    position: relative;
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
     background-color: #fefefe;
     margin: auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 80%;
+    display: flex;
+    flex-direction: column;
+    }
+
+.modal-content ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+
+.modal-content li {
+    margin: 1rem;
+  }
+  
+.modal-content p,
+.modal-content ul {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    width: 100%;
 }
 
+ 
+
 .close {
-    color: #aaaaaa;
-    float: right;
-    font-size: 28px;
+    background-color: #bbada0;
+    border: 1px solid #bbada0;
+    border-radius: 5px;
+    font-size: 1.5em;
     font-weight: bold;
+    padding: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    width: 100px;
+    align-self: flex-end;
 }
 
 .close:hover,
 .close:focus {
-    color: #000;
+
     text-decoration: none;
     cursor: pointer;
+    background-color: #e2cdba;
+    border-color: #e2cdba;
+    color: #bbada0;
 }
