@@ -6,6 +6,15 @@ This repository contains an implementation of the popular game 2048, created usi
 
 The 2048 game is a single-player sliding block puzzle game designed by Italian web developer Gabriele Cirulli. The game's objective is to slide numbered tiles on a grid to combine them to create a tile with the number 2048.
 
+## How To Play
+
+- **Start:** The game begins with some 2s and 4s on a grid.
+- **Move:** Use your keyboard's arrow keys to slide all tiles in one direction.
+- **Combine:** Tiles with the same number merge into a larger number when they collide.
+- **Goal:** Your aim is to create a tile with the number 2048.
+- **End:** The game is over when you can't move any tiles and the grid fills up.
+- **New Game:** Start over anytime by clicking on "New Game".
+
 ## Project Description
 
 This project recreates the 2048 game using React.js and utilizes the context API for state management. The state in this context refers to the status of the game board at any given point in time. 

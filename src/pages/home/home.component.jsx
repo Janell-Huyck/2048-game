@@ -10,13 +10,16 @@ import './home.styles.css';
 const Home = () => {
     const [showInstructionModal, setShowInstructionModal] = useState(false);
 
-const { gameState } = useContext(GameContext);
+const { gameState, gameDispatch } = useContext(GameContext);
   const { isGameOver } = gameState;
     return (
         <div className="home">
             <h1>2048</h1>
             <p>Use your arrow keys to move the tiles. Tiles with the same number merge into one when they touch. Add them up to reach 2048!</p>
-            <Button label="How to Play" onClick={() => setShowInstructionModal(true)}/>
+            <div className="button-container d-flex">
+                <Button label="How to Play" onClick={() => setShowInstructionModal(true)}/>
+                <Button label="New Game" onClick={() => gameDispatch({ type: 'INITIALIZE_GRID' })} />
+            </div>
             <br/>
             {showInstructionModal && <InstructionModal onClose={() => setShowInstructionModal(false)} />}
             <Grid/>
