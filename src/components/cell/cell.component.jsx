@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import './cell.css';
+import './cell.styles.css';
 
 function getCellColor(value) {
   const colorMap = {

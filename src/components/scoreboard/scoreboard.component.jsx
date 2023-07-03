@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
-import GameContext from '../contexts/gameContext';
-import './scoreboard.css';
+import GameContext from '../../contexts/gameContext';
+import './scoreboard.styles.css';
 
 const ScoreBoard = () => {
   // Import the needed values from the context

@@ -1,5 +1,7 @@
 import React, {useContext} from 'react';
-import GameContext from '../contexts/gameContext';
+import Button from '../button/button.component';
+import GameContext from '../../contexts/gameContext';
+import './gameOver.styles.css';
 
 
 const GameOver = () => {
@@ -9,7 +11,7 @@ const GameOver = () => {
           <div className="game-over-message">{ gameState.wonGame ? "You Won!" : "Game Over!" }</div>
           <br />
           <br />
-          <button className="new-game-button" onClick={() => gameDispatch({ type: 'INITIALIZE_GRID' })}>New Game</button>
+          <Button className="new-game-button" label="New Game" onClick={() => gameDispatch({ type: 'INITIALIZE_GRID' })}/>
         </div>
     )
 };

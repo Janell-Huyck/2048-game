@@ -1,6 +1,6 @@
 import './App.css';
 import { GameProvider } from './contexts/gameContext';
-import Home from './pages/home.jsx';
+import Home from './pages/home/home.component';
 
 function App() {
   return (
