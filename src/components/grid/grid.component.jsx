@@ -1,8 +1,8 @@
 import React, { useEffect, useContext } from 'react';
-import Cell from './cell';
-import './grid.css';
-import GameContext from '../contexts/gameContext';
-import { handleKeyInput } from '../utils/inputUtils';
+import Cell from '../cell/cell.component';
+import './grid.styles.css';
+import GameContext from '../../contexts/gameContext';
+import { handleKeyInput } from '../../utils/inputUtils';
 
 const Grid = () => {
   const { gameState, gameDispatch } = useContext(GameContext);
