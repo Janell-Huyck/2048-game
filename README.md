@@ -8,6 +8,8 @@ The 2048 game is a single-player sliding block puzzle game designed by Italian w
 
 ## How To Play
 
+You can play the game live here: https://janell-huyck.github.io/2048-game/
+
 - **Start:** The game begins with some 2s and 4s on a grid.
 - **Move:** Use your keyboard's arrow keys to slide all tiles in one direction.
 - **Combine:** Tiles with the same number merge into a larger number when they collide.

@@ -25,3 +25,4 @@ export const KeyToDirection = {
 export function handleKeyInput(event) {
     return KeyToDirection[event.key];
 }
+
