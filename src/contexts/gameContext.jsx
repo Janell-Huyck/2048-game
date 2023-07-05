@@ -31,7 +31,7 @@ const gameReducer = (state, action) => {
             }
             break;
           default:
-            break;
+            return state;
         }
 
         processedGridData.forEach(row => {

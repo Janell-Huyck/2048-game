@@ -2,11 +2,13 @@ import React, { useEffect, useContext } from 'react';
 import Cell from '../cell/cell.component';
 import './grid.styles.css';
 import GameContext from '../../contexts/gameContext';
-import { handleKeyInput } from '../../utils/inputUtils';
+import { handleKeyInput } from '../../utils/keyInputUtils';
+import { useSwipe } from '../../contexts/swipeContext';
 
 const Grid = () => {
   const { gameState, gameDispatch } = useContext(GameContext);
   const { didMove } = gameState;
+  const { handleTouchStart, handleSwipe } = useSwipe();
 
   useEffect(() => {
     const keydownHandler = (event) => {
@@ -23,6 +25,26 @@ const Grid = () => {
       document.removeEventListener('keydown', keydownHandler);
     }
   }, [gameDispatch]);
+
+  useEffect(() => {
+    const touchEndHandler = (event) => {
+      const direction = handleSwipe(event);
+      if (direction) {
+        gameDispatch({ type: 'MOVE_TILES', payload: direction });
+      }
+    };
+  
+    // Add event listener
+    const options = { passive: false };
+    window.addEventListener('touchstart', handleTouchStart, options);
+    window.addEventListener('touchend', touchEndHandler, options);
+  
+    // Clean up event listener on unmount
+    return () => {
+      window.removeEventListener('touchstart', handleTouchStart);
+      window.removeEventListener('touchend', touchEndHandler);
+    };
+  }, [gameDispatch, handleSwipe, handleTouchStart]); // Added dependencies
 
   useEffect(() => {
     if (didMove) {

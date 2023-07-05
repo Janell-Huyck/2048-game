@@ -1,12 +1,15 @@
 import './App.css';
 import { GameProvider } from './contexts/gameContext';
+import { SwipeProvider } from './contexts/swipeContext';
 import Home from './pages/home/home.component';
 
 function App() {
   return (
-    <GameProvider>
-      <Home/>
-    </GameProvider>
+    <SwipeProvider>
+      <GameProvider>
+        <Home/>
+      </GameProvider>
+    </SwipeProvider>
   );
 }
 
