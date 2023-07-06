@@ -1,4 +1,5 @@
 // Handle keyboard input for movement
+// This is a simple object that maps keyboard keys to directions
 export const KeyToDirection = {
     'ArrowUp': 'UP',
     'Up': 'UP',
@@ -22,6 +23,8 @@ export const KeyToDirection = {
     'D': 'RIGHT',
 };
 
+// Handle keyboard input, returning a direction for the game to move in
+// when a valid key is pressed.
 export function handleKeyInput(event) {
     return KeyToDirection[event.key];
 }

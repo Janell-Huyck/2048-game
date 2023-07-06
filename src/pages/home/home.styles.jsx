@@ -4,6 +4,8 @@ export const HomeContainer = styled.div`
     display: flex;
     flex-direction: column;
     height: 100vh;
+    width: 100vw;
+    position: fixed;
 
 
     @media screen and (max-width: 768px) and (orientation: portrait) {
@@ -44,8 +46,9 @@ export const HomeContainer = styled.div`
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
-        width: 100%;  
+        width: 80vw; 
         height: 100%; 
+        flex:1;
     }
     }
 `;

@@ -1,0 +1,17 @@
+.hide-on-mobile {
+    font-size: small;
+
+    @media screen and (max-width: 768px) {
+        display: none;
+    }
+
+    @media screen and (max-height: 768px) {
+        display: none;
+    }
+}
+
+.hide-on-short {
+    @media screen and (max-height: 450px) {
+        display: none;
+    }
+}

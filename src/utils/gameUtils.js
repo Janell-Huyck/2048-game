@@ -1,108 +1,162 @@
+
+// Function to merge cells in a row for the game 2048
 export const merge = (row) => {
-  let nonZeroData = row.filter(cell => cell.value !== 0); // Remove zeros
+  // Filter out cells with value 0
+  let nonZeroData = row.filter(cell => cell.value !== 0);
+
   let mergedData = [];
   let points = 0;
   let i = 0;
+
+  // Loop through the non-zero cells to merge cells with identical values
   do {
+    // If there are no non-zero cells left, exit loop
     if (nonZeroData.length === 0) {
         break;  
-    } else if (nonZeroData.length === 1) {
+    } 
+    // If there is only one non-zero cell, add it to the merged data
+    else if (nonZeroData.length === 1) {
         mergedData.push({value:nonZeroData[i].value, isNew: false});
         i++
-    } else if ((nonZeroData.length > i+1 ) && nonZeroData[i].value === nonZeroData[i+1].value) {
-        mergedData.push({ value:(nonZeroData[i].value * 2), isNew: false});
-        points += nonZeroData[i].value * 2;
-        i++; // Skip the next cell
-    } else {
+    } 
+    // If current cell and next cell have the same value, merge them
+    else if ((nonZeroData.length > i+1 ) && nonZeroData[i].value === nonZeroData[i+1].value) {
+        mergedData.push({ value:(nonZeroData[i].value * 2), isNew: false}); // Merge cells by doubling the value
+        points += nonZeroData[i].value * 2; // Update points
+        i++; // Skip next cell as it's merged with current
+    } 
+    // If current cell value does not match the next cell value, move it to the merged data
+    else {
       mergedData.push({value:nonZeroData[i].value, isNew: false});
     }
-        i++
-  } while (i < nonZeroData.length);
+    i++
+  } while (i < nonZeroData.length); // Repeat until all non-zero cells are processed
 
-  // Add zeros to the end of the merged data
+  // If the merged row length is less than 4, fill the rest with zeros
   while (mergedData.length < 4) {
     mergedData.push({value:0, isNew: false});
   }
+
+  // Return the merged row and the points gained from this merging process
   return {
       mergedData: mergedData,
       points: points
   };
 };
 
+
   
+// Function to add a new number (2 or 4) at a random empty position in the grid
 export const addNewNumber = (gridData) => {
-    const newGrid = JSON.parse(JSON.stringify(gridData));
-    let emptyCells = [];
-    for (let row = 0; row < 4; row++) {
-        for (let col = 0; col < 4; col++) {
-            if (newGrid[row][col].value === 0) {
-                emptyCells.push({row, col});
-            }
-        }
-    }
+  // Create a deep copy of the grid data to avoid mutation
+  const newGrid = JSON.parse(JSON.stringify(gridData));
 
-    if (emptyCells.length === 0) {
-        return newGrid; // No empty cells
-    } else {
-        let randomIndex = Math.floor(Math.random() * emptyCells.length);
-        let randomCell = emptyCells[randomIndex];
-        let randomValue = Math.random() < 0.5 ? 2 : 4;
-
-        let newGridData = [...newGrid]; // Copy the old state
-        newGridData[randomCell.row][randomCell.col] = {value:randomValue, isNew: true}; // Add the new number
-
-        return newGridData;
-    }
-};
-  
-  
-export const transpose = (grid) => {
-    return grid[0].map((_, i) => grid.map(row => row[i]));
-}
-
-export const initializeGrid = () => {
-    let gridData = [];
-    for (let row = 0; row < 4; row++) {
-      gridData.push([]);
+  // Collect all empty cells (i.e., cells with value 0) from the grid
+  let emptyCells = [];
+  for (let row = 0; row < 4; row++) {
       for (let col = 0; col < 4; col++) {
-        gridData[row].push({value:0, isNew: false});
+          // If the cell's value is 0, it's an empty cell
+          if (newGrid[row][col].value === 0) {
+              // Store the position of the empty cell
+              emptyCells.push({row, col});
+          }
       }
-    }
-    gridData = addNewNumber(gridData);
-    gridData = addNewNumber(gridData);
-    return gridData;
+  }
+
+  // If there are no empty cells, just return the original grid
+  if (emptyCells.length === 0) {
+      return newGrid; 
+  } else {
+      // Pick a random empty cell from the list
+      let randomIndex = Math.floor(Math.random() * emptyCells.length);
+      let randomCell = emptyCells[randomIndex];
+
+      // Decide on a random value (2 or 4) for the new cell
+      let randomValue = Math.random() < 0.5 ? 2 : 4;
+
+      // Make a new copy of the grid data
+      let newGridData = [...newGrid]; 
+
+      // Insert the new number into the randomly chosen empty cell
+      newGridData[randomCell.row][randomCell.col] = {value:randomValue, isNew: true}; 
+
+      // Return the updated grid
+      return newGridData;
+  }
+};
+
+  
+  
+// Function to transpose a 2D array (grid)
+// Transposing is essentially flipping the array over its diagonal,
+// which switches the row and column indices of each value
+export const transpose = (grid) => {
+  return grid[0].map((_, i) => grid.map(row => row[i]));
 }
 
+// Function to initialize a 4x4 grid for the game 
+// The grid is filled with cells containing the value 0 and isNew set to false
+export const initializeGrid = () => {
+  // Create an empty array to hold the grid data
+  let gridData = [];
+
+  // Populate the array with 4 rows of 4 columns, each cell initialized with 0
+  for (let row = 0; row < 4; row++) {
+    gridData.push([]); // Add a new row
+    for (let col = 0; col < 4; col++) {
+      // For each column in the row, add a cell with value 0 and isNew set to false
+      gridData[row].push({value:0, isNew: false});
+    }
+  }
+
+  // Add a new number to two random empty cells in the grid
+  gridData = addNewNumber(gridData);
+  gridData = addNewNumber(gridData);
+
+  // Return the initialized grid
+  return gridData;
+}
+
+// Function to check if the game is over.
+// The game is over when there are no empty cells (cells with a value of 0)
+// and there are no adjacent cells with the same value (which can be merged)
 export const checkGameOver = (gridData) => {
   console.log("checkGameOver")
-    for (let row = 0; row < 4; row++) {
+  for (let row = 0; row < 4; row++) {
       for (let col = 0; col < 4; col++) {
-        if (gridData[row][col].value === 0) {
-          return false; // game is not over if there is any zero (empty) cell
-        }
-        // check for adjacent cells in row
-        if (row < 3 && gridData[row][col].value === gridData[row + 1][col].value) {
-          return false; // game is not over if there is a possible merge in the row
-        }
-        // check for adjacent cells in column
-        if (col < 3 && gridData[row][col].value === gridData[row][col + 1].value) {
-          return false; // game is not over if there is a possible merge in the column
-        }
+          // Game continues if any cell is empty (value is 0)
+          if (gridData[row][col].value === 0) {
+              return false;
+          }
+          // Game continues if the current cell and the cell below it have the same value
+          if (row < 3 && gridData[row][col].value === gridData[row + 1][col].value) {
+              return false;
+          }
+          // Game continues if the current cell and the cell to its right have the same value
+          if (col < 3 && gridData[row][col].value === gridData[row][col + 1].value) {
+              return false;
+          }
       }
-    }
-    return true; // game is over
   }
+  // If no empty cells or possible merges are found, the game is over
+  return true;
+}
 
+// Function to check if the game has been won.
+// The game is won when there is a cell with a value of 2048
 export const checkGameWon = (gridData) => {
-    for (let row = 0; row < 4; row++) {
+  for (let row = 0; row < 4; row++) {
       for (let col = 0; col < 4; col++) {
-        if (gridData[row][col].value === 16) {
-          return true; // game is won if there is a cell with 2048
-        }
+          // Game is won if any cell has the value 2048
+          if (gridData[row][col].value === 2048) {
+              return true;
+          }
       }
-    }
-    return false; // game is not won
   }
+  // If no cell with the value 2048 is found, the game is not yet won
+  return false;
+}
+
 
 
 

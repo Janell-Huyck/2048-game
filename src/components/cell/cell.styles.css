@@ -1,27 +1,33 @@
+/* Style for grid cells */
 .cell {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    aspect-ratio: 1 / 1;
-    background-color: #cdc1b4;
-    color: #776e65;
-    font-weight: bold;
-    font-size: 2em;
-    border-radius: 4px;
-    overflow: hidden;
-  }
-  
-  .new-cell {
-    animation: pop-in 0.5s cubic-bezier(0, 0.5, 0.5, 1.5) forwards;
-  }
-  
+  /* Flex used for centering the content of the cell both horizontally and vertically */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-  @keyframes pop-in {
-    0% {
-      transform: scale(0);
-    }
-    100% {
-      transform: scale(1);
-    }
+  /* Make the cells square - not supported on older browsers */
+  aspect-ratio: 1 / 1;
+
+  /* Cell appearance properties */
+  background-color: #cdc1b4;
+  color: #776e65;
+  font-weight: bold;
+  font-size: 2em;
+  border-radius: 4px;
+  overflow: hidden;  /* Ensures content stays within the cell */
+}
+
+/* Style for newly created cells, includes an animation for "pop-in" effect */
+.new-cell {
+  animation: pop-in 0.5s cubic-bezier(0, 0.5, 0.5, 1.5) forwards;
+}
+
+/* Keyframes for pop-in animation. Scales the cell from 0 to its original size */
+@keyframes pop-in {
+  0% {
+    transform: scale(0);
   }
-  
+  100% {
+    transform: scale(1);
+  }
+}
