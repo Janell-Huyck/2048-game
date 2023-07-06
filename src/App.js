@@ -6,7 +6,6 @@ import Home from './pages/home/home.component';
 
 function App() {
   return (
-    
     <GameProvider>
       <SwipeProvider>
         <OverlaysProvider>
@@ -14,7 +13,6 @@ function App() {
         </OverlaysProvider>
         </SwipeProvider>
     </GameProvider>
-
   );
 }
 

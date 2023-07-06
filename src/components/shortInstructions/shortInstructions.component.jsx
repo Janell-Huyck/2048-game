@@ -1,6 +1,7 @@
 import React from 'react';
 import { ShortInstructionsContainer } from './shortInstructions.styles';
 
+// Displays short instructions in the header area when there is room for it.
 const ShortInstructions = () => {
     
         return (
