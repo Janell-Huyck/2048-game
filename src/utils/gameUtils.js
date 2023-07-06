@@ -74,6 +74,7 @@ export const initializeGrid = () => {
 }
 
 export const checkGameOver = (gridData) => {
+  console.log("checkGameOver")
     for (let row = 0; row < 4; row++) {
       for (let col = 0; col < 4; col++) {
         if (gridData[row][col].value === 0) {
@@ -95,7 +96,7 @@ export const checkGameOver = (gridData) => {
 export const checkGameWon = (gridData) => {
     for (let row = 0; row < 4; row++) {
       for (let col = 0; col < 4; col++) {
-        if (gridData[row][col].value === 2048) {
+        if (gridData[row][col].value === 16) {
           return true; // game is won if there is a cell with 2048
         }
       }

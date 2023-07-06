@@ -1,24 +1,23 @@
-import React, { useContext } from 'react';
-import GameContext from '../../contexts/gameContext';
-import './scoreboard.styles.css';
+import React from 'react';
+import { useGameContext } from '../../contexts/gameContext';
+import { ScoreBoardContainer } from './scoreboard.styles.jsx';
 
 const ScoreBoard = () => {
-  // Import the needed values from the context
-  const { gameState } = useContext(GameContext);
+  const { gameState } = useGameContext();
   const { score, highScore } = gameState;
   
 
   return (
-    <div className="score-board">
-      <div className="score">
-        <h4>Score</h4>
+    <ScoreBoardContainer>
+      <div>
+        <p>Score</p>
         <p>{score}</p>
       </div>
-      <div className="high-score">
-        <h4>High Score</h4>
+      <div>
+        <p>High Score</p>
         <p>{highScore}</p>
       </div>
-    </div>
+    </ScoreBoardContainer>
   );
 }
 
