@@ -1,4 +1,4 @@
-import React, { createContext, useReducer} from 'react';
+import React, { createContext, useReducer, useContext } from 'react';
 import { initializeGrid, merge, checkGameOver, transpose, addNewNumber, checkGameWon } from '../utils/gameUtils';
 
 const GameContext = createContext();
@@ -62,8 +62,6 @@ const gameReducer = (state, action) => {
           highScore: newHighScore,
           didMove: newDidMove,
         };
-
-
       case 'INITIALIZE_GRID':
           return {
           ...state,
@@ -74,13 +72,20 @@ const gameReducer = (state, action) => {
           didMove: false,
           };
       case 'CHECK_GAME_OVER':
+        console.log("check game over in context")
         const isGameOver = checkGameOver(state.gridData);
+        console.log("isGameOver", isGameOver)
+        console.log("wonGame", state.wonGame)
         return { ...state, isGameOver: isGameOver};
       case 'CHECK_GAME_WON':
         // Check if any cell has the value 2048
         const wonGame = checkGameWon(state.gridData);
+        if (wonGame) {
+          return { ...state, wonGame: wonGame, isGameOver: true}
+        }
         return { ...state, wonGame: wonGame}
       case 'ADD_NEW_NUMBER':
+
         return {
             ...state,
             gridData: addNewNumber(state.gridData),
@@ -113,3 +118,5 @@ export const GameProvider = ({ children }) => {
     </GameContext.Provider>
   );
 }
+
+export const useGameContext = () => useContext(GameContext);

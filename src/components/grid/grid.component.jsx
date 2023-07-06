@@ -1,17 +1,22 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect } from 'react';
 import Cell from '../cell/cell.component';
-import './grid.styles.css';
-import GameContext from '../../contexts/gameContext';
+import GameOver from '../gameOver/gameOver.component';
+import { GridContainer } from './grid.styles.jsx';
+import { useGameContext } from '../../contexts/gameContext';
 import { handleKeyInput } from '../../utils/keyInputUtils';
 import { useSwipe } from '../../contexts/swipeContext';
 
 const Grid = () => {
-  const { gameState, gameDispatch } = useContext(GameContext);
-  const { didMove } = gameState;
+  const { gameState, gameDispatch } = useGameContext();
+  const { gridData, didMove, isGameOver } = gameState;
   const { handleTouchStart, handleSwipe } = useSwipe();
 
   useEffect(() => {
     const keydownHandler = (event) => {
+      if (isGameOver) {
+        return;
+      }
+
       const direction = handleKeyInput(event);
 
       if (direction) {
@@ -24,9 +29,13 @@ const Grid = () => {
     return () => {
       document.removeEventListener('keydown', keydownHandler);
     }
-  }, [gameDispatch]);
+  }, [gameDispatch, gameState, isGameOver]);
 
   useEffect(() => {
+    if (isGameOver) {
+      return;
+    }
+
     const touchEndHandler = (event) => {
       const direction = handleSwipe(event);
       if (direction) {
@@ -44,26 +53,31 @@ const Grid = () => {
       window.removeEventListener('touchstart', handleTouchStart);
       window.removeEventListener('touchend', touchEndHandler);
     };
-  }, [gameDispatch, handleSwipe, handleTouchStart]); // Added dependencies
+  }, [gameDispatch, handleSwipe, handleTouchStart, isGameOver]); // Added dependencies
 
   useEffect(() => {
+    const { isGameOver, wonGame } = gameState;
+    if (isGameOver || wonGame) {
+      return;
+    }
     if (didMove) {
       gameDispatch({ type: 'ADD_NEW_NUMBER' });
-      gameDispatch({ type: 'CHECK_GAME_WON' });
       gameDispatch({ type: 'CHECK_GAME_OVER' });
+      gameDispatch({ type: 'CHECK_GAME_WON' });
       gameDispatch({ type: 'RESET_DID_MOVE' });
     }
-  }, [didMove, gameDispatch]); 
+  }, [didMove, gameDispatch, gameState]); 
 
   
   return (
-    <div className="grid" data-testid="grid" id="grid" >
-      {gameState.gridData.map((row, rowIndex) => 
+    <GridContainer data-testid="grid" id="grid" >
+      {gridData.map((row, rowIndex) => 
         row.map((cell, colIndex) => (
           <Cell key={`${rowIndex}-${colIndex}`} value={cell.value}  isNew={cell.isNew} />
         ))
       )}
-    </div>
+      {isGameOver && <GameOver />}
+    </GridContainer>
   );
 };
 

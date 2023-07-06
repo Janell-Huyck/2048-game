@@ -2,7 +2,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    /* aspect-ratio: 1 / 1; Make the cells square */
+    aspect-ratio: 1 / 1;
     background-color: #cdc1b4;
     color: #776e65;
     font-weight: bold;

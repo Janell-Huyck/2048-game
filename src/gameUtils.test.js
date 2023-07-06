@@ -1,4 +1,4 @@
-import { merge, addNewNumber, checkGameOver, transpose, initializeGrid } from './gameUtils';
+import { merge, addNewNumber, checkGameOver, transpose, initializeGrid } from './utils/gameUtils';
 
 describe('gameUtils', () => {
   // initial grid data for testing

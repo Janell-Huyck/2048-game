@@ -23,7 +23,7 @@ export function SwipeProvider({ children }) {
       const diffY = swipeEndY - swipeStart.y;
 
       // Don't do anything if the swipe was too small - assume it was intended as a click
-      if (diffX < 1 && diffY < 1) {
+      if (diffX < 0.5 && diffY < 0.5) {
         e.target.click();
         return;
       }
