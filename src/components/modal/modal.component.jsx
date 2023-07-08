@@ -1,9 +1,26 @@
-import React, { useEffect } from 'react';
-import './modal.styles.css';
+import React, { useEffect, useCallback } from 'react';
+import { ModalContainer, ModalContent, CloseButton } from './modal.styles';
+import { useGameContext } from '../../contexts/gameContext';
 
 // Modal component that serves as a general-purpose modal dialog box. 
-const Modal = ({ children, onClose }) => {
-    
+const Modal = ({ children }) => {
+    const { gameDispatch } = useGameContext();
+
+    // Function to close the modal.
+    const onClose = useCallback(() => {
+        //set game to active
+        gameDispatch({ type: 'ACTIVATE_GAME' });
+        //set show instructions to false
+        gameDispatch({ type: 'HIDE_INSTRUCTIONS' });
+        //close the modal
+        gameDispatch({ type: 'HIDE_GAME_OVER' });
+    }, [gameDispatch]);
+
+    // When the modal is shown, set gameActive to false.
+    useEffect(() => {
+        gameDispatch({ type: 'DEACTIVATE_GAME' });
+    }, [gameDispatch]);
+
     // Using the 'Escape' key will close the modal.
     useEffect(() => {
         function handleEscape(event) {
@@ -26,13 +43,13 @@ const Modal = ({ children, onClose }) => {
     }
 
     return (
-        <div className='modal' id='modal' onClick={handleBackgroundClick}>
-            <div className='modal-content'>
-                <span className='close' onClick={onClose}>&times;</span>
+        <ModalContainer onClick={handleBackgroundClick}>
+            <ModalContent>
+                <CloseButton onClick={onClose}>&times;</CloseButton>
                 {/* Render the content passed as children to the Modal */}
                 {children}
-            </div>
-        </div>
+            </ModalContent>
+        </ModalContainer>
     );
 };
 

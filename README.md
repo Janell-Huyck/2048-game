@@ -29,9 +29,11 @@ This application primarily consists of these main components:
   
 - `Cell`: This component is responsible for rendering an individual cell on the grid.
 
-- `ScoreBoard`: This component displays the player's current score.
+- `ScoreBoard`: This component displays the player's current score and the high score saved in local storage.
 
-- `GameOver`: This component is rendered when the game state indicates that no further moves are possible.
+- `GameOver`: This component is rendered when the user has won the game or the game state indicates that no further moves are possible.  A message displays indicating which has happened, and a New Game button appears.
+
+- `Instructions`: Displays instructions on how to play the game.
 
 ## Game Utilities
 
@@ -49,9 +51,23 @@ The game utilities are a set of functions that contain the core logic of the gam
   
 - `checkGameWon`: This function checks if the user has won the game.
 
-## Running the Project
+- `modal`: A custom modal component used for displaying either instructions or the game over components.
 
-To run this project on your local machine, follow these steps:
+## Running the Project as a PWA
+To run the project as a PWA, you will want to go to the live version at https://janell-huyck.github.io/2048-game/, and then click on the download button on your browser.  
+
+It looks like this in Chrome browsers: 
+<br/>
+<img src="assets/PWA-download-chrome.png" alt="PWA download button in Chrome" height="75" width="300">
+
+It looks like this for Edge browsers: 
+<br/>
+<img src="assets/PWA-download-edge.png" alt="PWA download button in Edge" height="75" width="300">
+
+Then, you will look for the project in your apps folder, and run it from there.
+
+## Running the Project via the terminal
+To run this project on your local machine via the terminal, follow these steps:
 
 1. Clone the repository to your machine:
     `git clone https://github.com/Janell-Huyck/2048-game.git`

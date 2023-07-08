@@ -67,19 +67,29 @@ const gameReducer = (state, action) => {
       return {
         ...state,
         gridData: initializeGrid(),
-        isGameOver: false,
         wonGame: false,
         score: 0,
         didMove: false,
+        showGameOver: false,
+        gameActive: true,
+        gameOver: false,
       };
     case 'CHECK_GAME_OVER':
-      return { ...state, isGameOver: checkGameOver(state.gridData)};
-    case 'CHECK_GAME_WON':
-      const wonGame = checkGameWon(state.gridData);
-      if (wonGame) {
-        return { ...state, wonGame: wonGame, isGameOver: true}
+      let gameOver = checkGameOver(state.gridData);
+      if (gameOver) {
+        return { ...state, gameActive: false, wonGame: false, showGameOver: true, gameOver: true}
+      } else {
+        return { ...state, gameOver: false}
       }
-      return { ...state, wonGame: wonGame}
+
+      case 'CHECK_GAME_WON':
+        const wonGame = checkGameWon(state.gridData);
+        if (wonGame) {
+          return { ...state, wonGame: true, showGameOver: true, gameActive: false, gameOver: true}
+        }
+        else {
+        return { ...state, wonGame: false}
+      }
     case 'ADD_NEW_NUMBER':
       return {
           ...state,
@@ -90,6 +100,42 @@ const gameReducer = (state, action) => {
         ...state,
         didMove: false,
       };
+    case 'ACTIVATE_GAME':
+      if (state.gameOver) {
+        return {
+          ...state,
+          gameActive: false,
+        };
+      } else {
+      return {
+        ...state,
+        gameActive: true,
+      }};
+    case 'DEACTIVATE_GAME':
+      return {
+        ...state,
+        gameActive: false,
+      };
+    case 'SHOW_INSTRUCTIONS':
+      return {
+        ...state,
+        showInstructions: true,
+      };
+    case 'HIDE_INSTRUCTIONS':
+      return {
+        ...state,
+        showInstructions: false,
+      };
+    case 'SHOW_GAME_OVER':
+      return {
+        ...state,
+        showGameOver: true,
+      };
+    case 'HIDE_GAME_OVER':
+      return {
+        ...state,
+        showGameOver: false,
+      };
     default:
       return state;
   }
@@ -99,11 +145,14 @@ const gameReducer = (state, action) => {
 export const GameProvider = ({ children }) => {
   const [gameState, gameDispatch] = useReducer(gameReducer, {
     gridData: initializeGrid(),
-    isGameOver: false,
+    showGameOver: false,
     wonGame: false,
     score: 0,
     highScore: localStorage.getItem('highScore') || 0,
     didMove: false,
+    gameActive: true,
+    showInstructions: false,
+    gameOver: false,
   });
 
   return (

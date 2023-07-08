@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import Cell from '../cell/cell.component';
-import GameOver from '../gameOver/gameOver.component';
 import { GridContainer } from './grid.styles.jsx';
 import { useGameContext } from '../../contexts/gameContext';
 import { handleKeyInput } from '../../utils/keyInputUtils';
@@ -10,15 +9,16 @@ import { useSwipe } from '../../contexts/swipeContext';
 const Grid = () => {
   // Use the game context to access the game state and dispatch function
   const { gameState, gameDispatch } = useGameContext();
+
   // Extract relevant state variables
-  const { gridData, didMove, isGameOver } = gameState;
+  const { gridData, didMove, showGameOver, gameActive, wonGame } = gameState;
   // Swipe handlers
   const { handleTouchStart, handleSwipe } = useSwipe();
 
   // Add keyboard event listener to move tiles
   useEffect(() => {
     // Return early if the game is over
-    if (isGameOver) {
+    if (!gameActive) {
       return;
     }
     // Event handler for keydown events
@@ -33,11 +33,11 @@ const Grid = () => {
     return () => {
       document.removeEventListener('keydown', keydownHandler);
     }
-  }, [gameDispatch, gameState, isGameOver]);
+  }, [gameDispatch, gameState, gameActive]);
 
   // Add touch event listeners to move tiles on swipe
   useEffect(() => {
-    if (isGameOver) {
+    if (!gameActive) {
       return;
     }
     const touchEndHandler = (event) => {
@@ -52,21 +52,20 @@ const Grid = () => {
       window.removeEventListener('touchstart', handleTouchStart);
       window.removeEventListener('touchend', touchEndHandler);
     };
-  }, [gameDispatch, handleSwipe, handleTouchStart, isGameOver]);
+  }, [gameDispatch, handleSwipe, handleTouchStart, gameActive]);
 
   // Update the game state after every move
   useEffect(() => {
-    const { isGameOver, wonGame } = gameState;
-    if (isGameOver || wonGame) {
+    if ( !gameActive) {
       return;
     }
     if (didMove) {
-      gameDispatch({ type: 'ADD_NEW_NUMBER' });
       gameDispatch({ type: 'CHECK_GAME_OVER' });
       gameDispatch({ type: 'CHECK_GAME_WON' });
+      gameDispatch({ type: 'ADD_NEW_NUMBER' });
       gameDispatch({ type: 'RESET_DID_MOVE' });
     }
-  }, [didMove, gameDispatch, gameState]);
+  }, [didMove, gameDispatch, gameState, showGameOver, wonGame, gameActive]);
 
   // Render the game grid and game over screen if the game is over
   return (
@@ -76,7 +75,7 @@ const Grid = () => {
           <Cell key={`${rowIndex}-${colIndex}`} value={cell.value}  isNew={cell.isNew} />
         ))
       )}
-      {isGameOver && <GameOver />}
+
     </GridContainer>
   );
 };
