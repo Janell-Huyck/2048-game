@@ -1,20 +1,17 @@
 import React from 'react';
 import Modal from '../modal/modal.component';
-import { useOverlays } from '../../contexts/overlaysContext';
 import './instructionModal.styles.css';
 
 // InstructionModal component displays a modal with game instructions.
 const InstructionModal = () => {
     // Context to control the visibility of the instruction modal.
-    const { toggleInstructions } = useOverlays();
 
     return (
-        <Modal onClose={toggleInstructions}>
+        <Modal >
             <span className='hide-on-short'>
                 <h2>Welcome to 2048!</h2>
             </span>
             <ul>
-                {/* Here, game instructions are defined in a list format */}
                 <li className="hide-on-short"><strong>Start:</strong> The game begins with some 2s and 4s on a grid.</li>
                 <li><strong>Move:</strong> Swipe or use your keyboard's arrow keys to slide all tiles in one direction.</li>
                 <li><strong>Combine:</strong> Tiles with the same number merge into a larger number when they collide.</li>

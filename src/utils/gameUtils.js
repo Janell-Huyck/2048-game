@@ -121,7 +121,7 @@ export const initializeGrid = () => {
 // The game is over when there are no empty cells (cells with a value of 0)
 // and there are no adjacent cells with the same value (which can be merged)
 export const checkGameOver = (gridData) => {
-  console.log("checkGameOver")
+
   for (let row = 0; row < 4; row++) {
       for (let col = 0; col < 4; col++) {
           // Game continues if any cell is empty (value is 0)
