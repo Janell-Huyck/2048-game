@@ -4,8 +4,8 @@ export const ModalContainer = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  width: calc(100 * var(--vw));
+  height: calc(100 * var(--vh));
   max-height: 100%;
   background: rgba(238, 228, 218, 0.8);
   display: flex;

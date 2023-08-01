@@ -5,16 +5,23 @@
   justify-content: center;
   align-items: center;
 
-  /* Make the cells square - not supported on older browsers */
-  aspect-ratio: 1 / 1;
-
   /* Cell appearance properties */
   background-color: #cdc1b4;
   color: #776e65;
   font-weight: bold;
-  font-size: 2em;
+  font-size: calc(4 * var(--vmin));
   border-radius: 4px;
   overflow: hidden;  /* Ensures content stays within the cell */
+
+  div {
+    transform: translateY(-25%);
+  }
+
+  ::before {
+    content: '';
+    display: block;
+    padding-top: 100%;  /* Equal to width to maintain a square shape */
+  }
 }
 
 /* Style for newly created cells, includes an animation for "pop-in" effect */

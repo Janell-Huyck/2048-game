@@ -3,18 +3,18 @@
     background-color: #D3C3A3; 
     border: none;
     color: black;
-    padding: 15px 32px;
+    padding: 0.5rem 0.5rem;
+    margin: auto;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 16px;
+    font-size: 14px;
     margin: 4px 2px;
     cursor: pointer;
     border-radius: 4px;
     transition: all 0.3s ease-in-out;
-    width: 100%;
-    max-width: 10rem;
     border: 1px solid #bbada0;
+    width: 100%;
   }
   
   .custom-button:hover {

@@ -11,7 +11,7 @@ function getCellColor(value) {
     32: '#f67c5f',
     64: '#f65e3b',
     128: '#edcf72',
-    256: '#edcc61',
+    256: '#edcc61', // 128 and 256 same color per bareena
     512: '#edc850',
     1024: '#edc53f',
     2048: '#edc22e',
@@ -49,7 +49,7 @@ const Cell = ({ value, isNew }) => {
       window.removeEventListener('resize', adjustHeight);
     };
   }, []);
-  
+
   // Cell component with color based on its value and containing the value
   return (
     <div className={cellClass} style={{ backgroundColor: getCellColor(value) }}>

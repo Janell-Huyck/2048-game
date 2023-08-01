@@ -9,19 +9,20 @@ export const ButtonContainer = styled.div`
     justify-content: center;
     align-items: center;
     width: 100%;
-    flex: 1;
+    flex: 0 0 auto;
+    margin: auto;
 
-    // Media query for screens up to 1200px wide in landscape orientation.
-    @media screen and (max-width: 1200px) and (orientation: landscape) {
-        // Switch to column layout and space items evenly for these screens.
-        flex-direction: column;
-        justify-content: flex-end !important;
-    }
-
-    @media screen and (max-width: 1281px) and (orientation: landscape) {
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
+    @media (orientation:landscape) {
+    // CSS properties to center content and set full width.
+    order: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex: 0 0 auto;
+}
 `;
+
+
 

@@ -2,23 +2,17 @@ import React from 'react';
 import { useGameContext } from '../../contexts/gameContext';
 import { ScoreBoardContainer } from './scoreboard.styles.jsx';
 
-// ScoreBoard component displays current score and high score.
 const ScoreBoard = () => {
-  // Use game context to access the current game state
   const { gameState } = useGameContext();
-
-  // Destructure score and highScore from gameState
   const { score, highScore } = gameState;
 
   return (
     <ScoreBoardContainer>
       <div>
-        <p>Score</p>
-        <p>{score}</p> {/* Display current score */}
+        <p>Score: {score}</p>
       </div>
       <div>
-        <p>High Score</p>
-        <p>{highScore}</p> {/* Display high score */}
+        <p>High Score: {highScore}</p>
       </div>
     </ScoreBoardContainer>
   );

@@ -1,73 +1,18 @@
 import styled from 'styled-components';
 
 export const HomeContainer = styled.div`
+    position: relative;
     display: flex;
     flex-direction: column;
-    height: 100vh;
-    width: 100vw;
-    position: fixed;
-
-
-    @media screen and (max-width: 768px) and (orientation: portrait) {
-    flex-direction: column;
-    }
-
-    @media screen and (max-width: 768px) and (orientation: landscape) {
-    flex-direction: row;
-    justify-content: space-between; 
-    .grid-score-combo {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-        height: 100%;
-    }
-    }
-
-    @media screen and (min-width: 769px) and (max-width: 1281px) and (orientation: portrait) {
-    flex-direction: column;
-    justify-content: space-around; 
-    .grid-score-combo {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        align-items: center;
-        width: 100%;  
-        height: 100%; 
-    }
-    }
-
-    @media screen and (min-width: 769px) and (max-width: 1281px) and (orientation: landscape) {
-    flex-direction: row;
-    justify-content: space-between; 
-    .grid-score-combo {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        width: 80vw; 
-        height: 100%; 
-        flex:1;
-    }
-    }
-`;
-
-
-
-
-
-export const ScoreBox = styled.div`
-    order: 3;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+    max-height: 100%;
+    max-width: 100%;
     align-items: center;
-    width: 100%;
+    justify-content: space-around;
+    min-height: -webkit-fill-available;
+    min-width: -webkit-fill-available;
 
-    @media screen and (max-width: 768px) and (orientation: landscape) {
-        order:2;
-        flex-direction: column;
-        justify-content: space-around;
-    }
+
+  @media (orientation:landscape) {
+    flex-direction: row; 
+  }
 `;

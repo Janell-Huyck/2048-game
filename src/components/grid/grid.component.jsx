@@ -7,12 +7,9 @@ import { useSwipe } from '../../contexts/swipeContext';
 
 // Main game grid component
 const Grid = () => {
-  // Use the game context to access the game state and dispatch function
-  const { gameState, gameDispatch } = useGameContext();
 
-  // Extract relevant state variables
+  const { gameState, gameDispatch } = useGameContext();
   const { gridData, didMove, showGameOver, gameActive, wonGame } = gameState;
-  // Swipe handlers
   const { handleTouchStart, handleSwipe } = useSwipe();
 
   // Add keyboard event listener to move tiles
@@ -67,8 +64,10 @@ const Grid = () => {
     }
   }, [didMove, gameDispatch, gameState, showGameOver, wonGame, gameActive]);
 
+
   // Render the game grid and game over screen if the game is over
   return (
+    
     <GridContainer data-testid="grid" id="grid" >
       {gridData.map((row, rowIndex) => 
         row.map((cell, colIndex) => (
