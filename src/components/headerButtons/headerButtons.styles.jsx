@@ -6,7 +6,7 @@ export const ButtonContainer = styled.div`
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    width: 100%;
+    width: 75%;
     flex: 0 0 auto;
     margin: auto;
 
