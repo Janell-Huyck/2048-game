@@ -1,3 +1,5 @@
+// Sets the initial viewport and font sizes based on the window size
+
 import { useEffect, useState, useMemo } from 'react';
 import { useWindowSize } from './useWindowSize';
 import throttle from 'lodash/throttle';
@@ -16,20 +18,16 @@ export const useViewportSettings = () => {
             throttle(() => {
                 if (typeof height !== "undefined" && typeof width !== "undefined") {
                     setIsSizeCalculated(false);
-                    console.log("inside throttledResize, height is: " + height)
-                    console.log("inside throttledResize, width is: " + width)
                     const vh = height * 0.01;
                     const vw = width * 0.01;
                     const vmin = Math.min(vh, vw);
     
                     setViewportAndFontSizes(vh, vw, vmin);
     
-                    // Calculate grid size and header size based on orientation
-                    const isLandscape = width > height;
                     const gridSize = 70 * vmin;
                     setCSSProperty("--grid-size", gridSize);
     
-                    // Calculate header size
+                    const isLandscape = width > height;
                     const { headerWidth, headerHeight } = calculateHeaderSize(
                         isLandscape,
                         vw,
@@ -46,10 +44,8 @@ export const useViewportSettings = () => {
     
 
     useEffect(() => {
-        // Invoke the throttled function immediately on mount
         throttledResize();
     
-        // Then set it up as a handler for resize events
         const handleResize = () => throttledResize();
     
         window.addEventListener('resize', handleResize);

@@ -5,7 +5,6 @@ import { useGameContext } from '../../contexts/gameContext';
 import { handleKeyInput } from '../../utils/keyInputUtils';
 import { useSwipe } from '../../contexts/swipeContext';
 
-// Main game grid component
 const Grid = () => {
 
   const { gameState, gameDispatch } = useGameContext();
@@ -14,11 +13,10 @@ const Grid = () => {
 
   // Add keyboard event listener to move tiles
   useEffect(() => {
-    // Return early if the game is over
     if (!gameActive) {
       return;
     }
-    // Event handler for keydown events
+
     const keydownHandler = (event) => {
       const direction = handleKeyInput(event);
       if (direction) {
@@ -26,7 +24,7 @@ const Grid = () => {
       }
     };
     document.addEventListener('keydown', keydownHandler);
-    // Remove event listener on unmount
+
     return () => {
       document.removeEventListener('keydown', keydownHandler);
     }
@@ -51,7 +49,6 @@ const Grid = () => {
     };
   }, [gameDispatch, handleSwipe, handleTouchStart, gameActive]);
 
-  // Update the game state after every move
   useEffect(() => {
     if ( !gameActive) {
       return;
@@ -65,16 +62,13 @@ const Grid = () => {
   }, [didMove, gameDispatch, gameState, showGameOver, wonGame, gameActive]);
 
 
-  // Render the game grid and game over screen if the game is over
-  return (
-    
+  return (  
     <GridContainer data-testid="grid" id="grid" >
       {gridData.map((row, rowIndex) => 
         row.map((cell, colIndex) => (
           <Cell key={`${rowIndex}-${colIndex}`} value={cell.value}  isNew={cell.isNew} />
         ))
       )}
-
     </GridContainer>
   );
 };

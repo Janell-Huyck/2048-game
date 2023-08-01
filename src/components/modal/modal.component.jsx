@@ -2,21 +2,14 @@ import React, { useEffect, useCallback } from 'react';
 import { ModalContainer, ModalContent, CloseButton } from './modal.styles';
 import { useGameContext } from '../../contexts/gameContext';
 
-// Modal component that serves as a general-purpose modal dialog box. 
 const Modal = ({ children }) => {
     const { gameDispatch } = useGameContext();
-
-    // Function to close the modal.
     const onClose = useCallback(() => {
-        //set game to active
         gameDispatch({ type: 'ACTIVATE_GAME' });
-        //set show instructions to false
         gameDispatch({ type: 'HIDE_INSTRUCTIONS' });
-        //close the modal
         gameDispatch({ type: 'HIDE_GAME_OVER' });
     }, [gameDispatch]);
 
-    // When the modal is shown, set gameActive to false.
     useEffect(() => {
         gameDispatch({ type: 'DEACTIVATE_GAME' });
     }, [gameDispatch]);

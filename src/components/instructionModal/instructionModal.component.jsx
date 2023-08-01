@@ -2,10 +2,7 @@ import React from 'react';
 import Modal from '../modal/modal.component';
 import './instructionModal.styles.css';
 
-// InstructionModal component displays a modal with game instructions.
 const InstructionModal = () => {
-    // Context to control the visibility of the instruction modal.
-
     return (
         <Modal >
             <span className='hide-on-short'>

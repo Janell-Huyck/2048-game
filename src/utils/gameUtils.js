@@ -1,5 +1,5 @@
-
-// Function to merge cells in a row for the game 2048
+// Function to merge cells within a row.
+// Columns are converted to rows, merged as rows, and then converted back to columns.
 export const merge = (row) => {
   // Filter out cells with value 0
   let nonZeroData = row.filter(cell => cell.value !== 0);
@@ -8,9 +8,8 @@ export const merge = (row) => {
   let points = 0;
   let i = 0;
 
-  // Loop through the non-zero cells to merge cells with identical values
+  // Loop through the non-zero cells in a row to merge cells with identical values
   do {
-    // If there are no non-zero cells left, exit loop
     if (nonZeroData.length === 0) {
         break;  
     } 
@@ -37,7 +36,6 @@ export const merge = (row) => {
     mergedData.push({value:0, isNew: false});
   }
 
-  // Return the merged row and the points gained from this merging process
   return {
       mergedData: mergedData,
       points: points
@@ -153,7 +151,6 @@ export const checkGameWon = (gridData) => {
           }
       }
   }
-  // If no cell with the value 2048 is found, the game is not yet won
   return false;
 }
 

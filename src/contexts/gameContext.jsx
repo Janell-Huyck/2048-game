@@ -1,9 +1,17 @@
+// Stores the state of the game including:
+// gridData: 2D array of numbers representing the grid
+// score: current score
+// highScore: highest score achieved
+// gameActive: boolean to indicate if game is active
+// showGameOver: boolean to indicate if game over modal should be shown
+// showInstructions: boolean to indicate if instructions modal should be shown
+// didMove: boolean to indicate if tiles moved during last move
+// wonGame: boolean to indicate if game has been won
 import React, { createContext, useReducer, useContext } from 'react';
 import { initializeGrid, merge, checkGameOver, transpose, addNewNumber, checkGameWon } from '../utils/gameUtils';
 
-const GameContext = createContext(); // Game context for state management
+const GameContext = createContext();
 
-// Game reducer to handle various game actions
 const gameReducer = (state, action) => {
   switch (action.type) {
     case 'MOVE_TILES':
@@ -141,7 +149,6 @@ const gameReducer = (state, action) => {
   }
 }
 
-// Provide game context to children components
 export const GameProvider = ({ children }) => {
   const [gameState, gameDispatch] = useReducer(gameReducer, {
     gridData: initializeGrid(),
@@ -162,5 +169,5 @@ export const GameProvider = ({ children }) => {
   );
 }
 
-export const useGameContext = () => useContext(GameContext); // Custom hook to use game context
+export const useGameContext = () => useContext(GameContext);
 export default GameContext;

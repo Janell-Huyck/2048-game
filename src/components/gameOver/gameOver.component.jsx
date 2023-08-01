@@ -1,12 +1,9 @@
-// Importing necessary components and contexts
 import React from 'react';
 import Button from '../button/button.component';
 import Modal from '../modal/modal.component';
 import { useGameContext } from '../../contexts/gameContext';
 
-// GameOver Component
 const GameOver = () => {
-    // Using GameContext to get gameState and gameDispatch
     const { gameState, gameDispatch } = useGameContext();
     return (
         <Modal >
@@ -18,5 +15,4 @@ const GameOver = () => {
     );
 };
 
-// Exporting the GameOver component to be used in other parts of our application
 export default GameOver;

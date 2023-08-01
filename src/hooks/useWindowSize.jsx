@@ -1,16 +1,13 @@
 import { useState, useEffect } from 'react';
 
 export function useWindowSize() {
-  console.log("useWindowSize called")
   const [windowSize, setWindowSize] = useState({
     width: undefined,
     height: undefined,
   });
 
   useEffect(() => {
-    console.log("useWindowSize useEffect called")
     function handleResize() {
-      console.log("useWindowSize handleResize called")
       setWindowSize({
         width: window.innerWidth,
         height: window.innerHeight,

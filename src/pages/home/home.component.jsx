@@ -1,4 +1,5 @@
-// pages/Home/Home.jsx
+// The main page of the app is the Home component. It renders the Header and Grid components.
+
 import React from 'react';
 import Grid from '../../components/grid/grid.component';
 import InstructionModal from '../../components/instructionModal/instructionModal.component';
